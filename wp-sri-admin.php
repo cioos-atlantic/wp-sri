@@ -159,7 +159,7 @@ class WP_SRI_Known_Hashes_List_Table extends WP_List_Table {
     protected function get_exclude_actions( $item, &$actions ) {
 
         $url = esc_url( $item['url'] );
-        if ( false === array_search( $url, $this->sri_exclude ) ) {
+        if ( false === preg_grep( "/^$url/", $this->sri_exclude ) ) {
             $actions['exclude'] =  sprintf(
                 '<a href="?page=%s&amp;action=%s&amp;url=%s&amp;_wp_sri_nonce=%s&amp;orderby=%s&amp;order=%s" title="%s">%s</a>',
                 $_REQUEST['page'], 'exclude', rawurlencode($item['url']), wp_create_nonce('update_sri_hash'),
