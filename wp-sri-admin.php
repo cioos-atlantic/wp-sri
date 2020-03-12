@@ -100,7 +100,7 @@ class WP_SRI_Known_Hashes_List_Table extends WP_List_Table {
 
         $items = array();
         foreach ($known_hashes as $url => $hash) {
-            $exclude = ( false !== array_search( $url, $this->sri_exclude ) ) ? 'a' : 'b';
+            $exclude = ( false !== preg_grep( "/^$url/", $this->sri_exclude ) ) ? 'a' : 'b';
             $items[] = array(
                 'url' => $url,
                 'hash' => $hash,
